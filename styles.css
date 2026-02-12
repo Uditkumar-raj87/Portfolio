@@ -733,6 +733,12 @@ body[data-theme="light"] .tool-icons img {
   margin: 8px 0 6px;
 }
 
+.case-description {
+  color: var(--slate);
+  font-size: 0.98rem;
+  margin-top: 6px;
+}
+
 .case-label {
   display: inline-flex;
   align-items: center;
