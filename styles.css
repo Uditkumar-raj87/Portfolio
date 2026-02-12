@@ -930,9 +930,9 @@ body[data-theme="light"] .skill-icon {
   height: 30px;
   padding: 6px;
   border-radius: 10px;
-  background: rgba(21, 19, 17, 0.9);
+  background: linear-gradient(135deg, rgba(0, 245, 255, 0.6), rgba(122, 92, 255, 0.7));
   border: 1px solid rgba(246, 242, 237, 0.12);
-  filter: invert(1) brightness(1.05) contrast(0.95);
+  filter: invert(1) brightness(1.2) contrast(1.1);
   box-shadow: 0 10px 18px rgba(0, 0, 0, 0.3);
 }
 
