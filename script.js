@@ -33,3 +33,21 @@ if (heroCard) {
     heroCard.style.transform = "";
   });
 }
+
+const parallaxItems = document.querySelectorAll("[data-parallax='true']");
+if (parallaxItems.length) {
+  window.addEventListener("mousemove", (event) => {
+    const x = (event.clientX / window.innerWidth - 0.5) * 12;
+    const y = (event.clientY / window.innerHeight - 0.5) * 12;
+    parallaxItems.forEach((item, index) => {
+      const depth = (index % 3 + 1) * 0.6;
+      item.style.transform = `translate3d(${x * depth}px, ${y * depth}px, 0)`;
+    });
+  });
+
+  window.addEventListener("mouseleave", () => {
+    parallaxItems.forEach((item) => {
+      item.style.transform = "";
+    });
+  });
+}
