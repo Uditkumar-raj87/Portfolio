@@ -20,32 +20,60 @@ const observer = new IntersectionObserver(
 
 revealItems.forEach((item) => observer.observe(item));
 
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 const heroCard = document.querySelector(".hero-card");
-if (heroCard) {
-  heroCard.addEventListener("mousemove", (event) => {
+if (heroCard && !prefersReducedMotion) {
+  let heroRaf = null;
+  let heroPoint = null;
+
+  const updateHeroTilt = () => {
+    if (!heroPoint) return;
     const rect = heroCard.getBoundingClientRect();
-    const x = ((event.clientX - rect.left) / rect.width - 0.5) * 6;
-    const y = ((event.clientY - rect.top) / rect.height - 0.5) * -6;
+    const x = ((heroPoint.x - rect.left) / rect.width - 0.5) * 6;
+    const y = ((heroPoint.y - rect.top) / rect.height - 0.5) * -6;
     heroCard.style.transform = `translateY(-6px) rotateX(${y}deg) rotateY(${x}deg)`;
+    heroRaf = null;
+  };
+
+  heroCard.addEventListener("mousemove", (event) => {
+    heroPoint = { x: event.clientX, y: event.clientY };
+    if (!heroRaf) {
+      heroRaf = requestAnimationFrame(updateHeroTilt);
+    }
   });
 
   heroCard.addEventListener("mouseleave", () => {
+    heroPoint = null;
     heroCard.style.transform = "";
   });
 }
 
 const parallaxItems = document.querySelectorAll("[data-parallax='true']");
-if (parallaxItems.length) {
-  window.addEventListener("mousemove", (event) => {
-    const x = (event.clientX / window.innerWidth - 0.5) * 12;
-    const y = (event.clientY / window.innerHeight - 0.5) * 12;
+if (parallaxItems.length && !prefersReducedMotion) {
+  let parallaxRaf = null;
+  let pointer = null;
+
+  const updateParallax = () => {
+    if (!pointer) return;
+    const x = (pointer.x / window.innerWidth - 0.5) * 12;
+    const y = (pointer.y / window.innerHeight - 0.5) * 12;
     parallaxItems.forEach((item, index) => {
       const depth = (index % 3 + 1) * 0.6;
       item.style.transform = `translate3d(${x * depth}px, ${y * depth}px, 0)`;
     });
+    parallaxRaf = null;
+  };
+
+  window.addEventListener("mousemove", (event) => {
+    pointer = { x: event.clientX, y: event.clientY };
+    if (!parallaxRaf) {
+      parallaxRaf = requestAnimationFrame(updateParallax);
+    }
   });
 
   window.addEventListener("mouseleave", () => {
+    pointer = null;
     parallaxItems.forEach((item) => {
       item.style.transform = "";
     });

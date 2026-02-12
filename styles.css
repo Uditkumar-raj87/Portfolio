@@ -70,8 +70,9 @@ body[data-theme="light"] {
   pointer-events: none;
   perspective: 900px;
   transform-style: preserve-3d;
-  opacity: 0.78;
-  filter: saturate(1.1);
+  opacity: 0.7;
+  filter: saturate(1.05);
+  will-change: transform;
 }
 
 .backdrop-3d::before,
@@ -84,8 +85,9 @@ body[data-theme="light"] {
   border-radius: 50%;
   background: radial-gradient(circle, rgba(123, 210, 177, 0.35), rgba(123, 210, 177, 0));
   transform: translateZ(-260px);
-  animation: haloDrift 18s ease-in-out infinite;
+  animation: haloDrift 24s ease-in-out infinite;
   mix-blend-mode: screen;
+  will-change: transform;
 }
 
 .backdrop-3d::after {
@@ -93,7 +95,7 @@ body[data-theme="light"] {
   width: 65vmax;
   height: 65vmax;
   background: radial-gradient(circle, rgba(247, 185, 85, 0.35), rgba(247, 185, 85, 0));
-  animation-delay: -6s;
+  animation-delay: -10s;
 }
 
 .grid-3d {
@@ -105,9 +107,10 @@ body[data-theme="light"] {
   background-size: 120px 120px;
   transform: rotateX(68deg) rotateZ(18deg) translateZ(-220px);
   transform-origin: center;
-  animation: gridSpin 36s linear infinite;
-  filter: blur(0.4px);
+  animation: gridSpin 52s linear infinite;
+  filter: blur(0.2px);
   opacity: 0.85;
+  will-change: transform;
 }
 
 body[data-theme="light"] .backdrop-3d {
@@ -125,7 +128,8 @@ body[data-theme="light"] .backdrop-3d {
   --ring-rotatex: 55deg;
   --ring-rotatez: 12deg;
   --ring-depth: -120px;
-  animation: ringFloat 12s ease-in-out infinite;
+  animation: ringFloat 18s ease-in-out infinite;
+  will-change: transform;
 }
 
 .ring-one {
@@ -164,7 +168,8 @@ body[data-theme="light"] .backdrop-3d {
   left: 68%;
   transform-style: preserve-3d;
   transform: rotateX(18deg) rotateY(18deg) translateZ(-120px);
-  animation: cubeSpin 16s linear infinite;
+  animation: cubeSpin 22s linear infinite;
+  will-change: transform;
 }
 
 .cube-3d .face {
@@ -173,7 +178,7 @@ body[data-theme="light"] .backdrop-3d {
   background: linear-gradient(135deg, rgba(240, 111, 111, 0.55), rgba(123, 210, 177, 0.35));
   border: 1px solid rgba(246, 242, 237, 0.28);
   box-shadow: 0 0 30px rgba(240, 111, 111, 0.3);
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(0.5px);
 }
 
 .cube-3d .face:nth-child(1) {
@@ -206,7 +211,19 @@ body[data-theme="light"] .backdrop-3d {
   filter: blur(0px);
   opacity: 0.6;
   mix-blend-mode: screen;
-  animation: floaty 14s ease-in-out infinite;
+  animation: floaty 22s ease-in-out infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop-3d,
+  .grid-3d,
+  .ring-3d,
+  .cube-3d,
+  .orb {
+    animation: none;
+    transform: none;
+  }
 }
 
 .orb-one {
