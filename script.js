@@ -53,16 +53,38 @@ const parallaxItems = document.querySelectorAll("[data-parallax='true']");
 if (parallaxItems.length && !prefersReducedMotion) {
   let parallaxRaf = null;
   let pointer = null;
+  let scrollRaf = null;
+  let scrollOffset = 0;
 
   const updateParallax = () => {
     if (!pointer) return;
-    const x = (pointer.x / window.innerWidth - 0.5) * 12;
+    const x = (pointer.x / window.innerWidth - 0.5) * 16;
     const y = (pointer.y / window.innerHeight - 0.5) * 12;
-    parallaxItems.forEach((item, index) => {
-      const depth = (index % 3 + 1) * 0.6;
-      item.style.transform = `translate3d(${x * depth}px, ${y * depth}px, 0)`;
+    parallaxItems.forEach((item) => {
+      const depth = Number.parseFloat(item.dataset.depth || "0.6");
+      item.style.setProperty("--parallax-x", `${x * depth}px`);
+      item.style.setProperty("--parallax-y", `${y * depth}px`);
     });
     parallaxRaf = null;
+  };
+
+  const updateScroll = () => {
+    const maxShift = 8;
+    const progress = Math.min(window.scrollY / window.innerHeight, 1.4);
+    scrollOffset = -progress * maxShift;
+    parallaxItems.forEach((item) => {
+      const depth = Number.parseFloat(item.dataset.depth || "0.6");
+      item.style.setProperty("--parallax-scroll", `${scrollOffset * depth}px`);
+    });
+    scrollRaf = null;
+  };
+
+  const resetParallax = () => {
+    parallaxItems.forEach((item) => {
+      item.style.setProperty("--parallax-x", "0px");
+      item.style.setProperty("--parallax-y", "0px");
+      item.style.setProperty("--parallax-scroll", "0px");
+    });
   };
 
   window.addEventListener("mousemove", (event) => {
@@ -74,10 +96,34 @@ if (parallaxItems.length && !prefersReducedMotion) {
 
   window.addEventListener("mouseleave", () => {
     pointer = null;
-    parallaxItems.forEach((item) => {
-      item.style.transform = "";
-    });
+    resetParallax();
   });
+
+  window.addEventListener("scroll", () => {
+    if (!scrollRaf) {
+      scrollRaf = requestAnimationFrame(updateScroll);
+    }
+  });
+
+  window.addEventListener(
+    "touchmove",
+    (event) => {
+      const touch = event.touches[0];
+      if (!touch) return;
+      pointer = { x: touch.clientX, y: touch.clientY };
+      if (!parallaxRaf) {
+        parallaxRaf = requestAnimationFrame(updateParallax);
+      }
+    },
+    { passive: true }
+  );
+
+  window.addEventListener("touchend", () => {
+    pointer = null;
+    resetParallax();
+  });
+
+  updateScroll();
 }
 
 const tiltCards = document.querySelectorAll(
