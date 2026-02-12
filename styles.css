@@ -799,7 +799,7 @@ main {
   padding: 8px;
   background: linear-gradient(135deg, rgba(0, 245, 255, 0.6), rgba(122, 92, 255, 0.7));
   border-radius: 12px;
-  filter: invert(1) brightness(1.1);
+  filter: invert(1) brightness(1.2) contrast(1.1);
 }
 
 body[data-theme="light"] .skill-icon img {
@@ -829,6 +829,22 @@ body[data-theme="light"] .skill-icon img {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
   border: 1px solid rgba(0, 245, 255, 0.12);
   transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+body[data-theme="light"] .timeline-card,
+body[data-theme="light"] .project-card,
+body[data-theme="light"] .skill-block,
+body[data-theme="light"] .edu-card,
+body[data-theme="light"] .cert-card,
+body[data-theme="light"] .case-card,
+body[data-theme="light"] .skill-icon {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(11, 15, 26, 0.12);
+  box-shadow: 0 18px 36px rgba(10, 16, 28, 0.12);
+}
+
+body[data-theme="light"] .skill-icon {
+  box-shadow: 0 12px 26px rgba(10, 16, 28, 0.12);
 }
 
 .tilt-card {
@@ -916,12 +932,14 @@ body[data-theme="light"] .skill-icon img {
   border-radius: 10px;
   background: rgba(21, 19, 17, 0.9);
   border: 1px solid rgba(246, 242, 237, 0.12);
-  filter: invert(1) brightness(1.1);
+  filter: invert(1) brightness(1.05) contrast(0.95);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.3);
 }
 
 body[data-theme="light"] .tool-icons img {
   background: #ffffff;
   filter: none;
+  box-shadow: 0 10px 18px rgba(10, 16, 28, 0.12);
 }
 
 .timeline-card li {
