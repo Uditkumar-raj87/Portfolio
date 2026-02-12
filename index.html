@@ -38,11 +38,14 @@
         <a class="logo" href="#top">UKR</a>
         <div class="nav-links">
           <a href="#projects">Projects</a>
-          <a href="#ux-motion">UI/UX</a>
+          <a href="#design-lab">Design Lab</a>
           <a href="#experience">Internship</a>
           <a href="#skills">Skills</a>
           <a href="#education">Education</a>
         </div>
+        <button class="theme-toggle" type="button" aria-label="Toggle theme">
+          <span class="theme-icon">☾</span>
+        </button>
         <a class="cta" href="mailto:uditkumar.uk9155@gmail.com">Let’s talk</a>
       </nav>
       <div class="hero-grid">
@@ -97,6 +100,7 @@
           <div class="profile-photo">
             <div class="photo-frame">
               <img
+                id="profile-image"
                 src="assets/profile.jpg"
                 alt="Udit Kumar Raj"
                 loading="lazy"
@@ -107,6 +111,10 @@
               <p class="muted">Profile</p>
               <h3>Udit Kumar Raj</h3>
             </div>
+          </div>
+          <div class="upload-row">
+            <label class="upload-btn" for="profile-upload">Add your photo</label>
+            <input id="profile-upload" type="file" accept="image/*" />
           </div>
           <div class="badge">Open to opportunities</div>
           <div class="info-block">
@@ -251,37 +259,198 @@
         </div>
       </section>
 
-      <section class="section" id="ux-motion">
+      <section class="section" id="design-lab">
         <div class="section-head">
-          <h2>UI/UX Motion Lab</h2>
-          <p>Animated layout concepts with depth, glow, and movement.</p>
+          <h2>UI/UX Case Studies</h2>
+          <p>Three premium design studies mixing research and product UI.</p>
         </div>
-        <div class="motion-stage" data-parallax="true">
-          <div class="motion-layer layer-primary">
-            <div class="motion-card">
-              <h3>Orbit Navigation</h3>
-              <p>Magnetic buttons with adaptive contrast.</p>
-              <div class="chips">
-                <span>Motion</span>
-                <span>Micro UX</span>
-                <span>Contrast</span>
+        <div class="case-grid">
+          <article class="case-card case-research">
+            <div class="case-head">
+              <span class="case-label">HCI Research</span>
+              <h3>Elevator Control Panel HCI Analysis</h3>
+              <p>
+                Research board layout with structured insights and concept
+                exploration.
+              </p>
+            </div>
+            <div class="case-board">
+              <div class="board-note">
+                <h4>Problem Definition</h4>
+                <p>
+                  Traditional elevator panels are confusing, inefficient, and
+                  not optimized for modern high-rise usage.
+                </p>
+              </div>
+              <div class="board-note">
+                <h4>User Pain Points</h4>
+                <p>
+                  Difficulty selecting floors quickly, accessibility challenges,
+                  unclear feedback, overcrowding inefficiency.
+                </p>
+              </div>
+              <div class="board-note">
+                <h4>Practical Real-World Issues</h4>
+                <p>
+                  Peak hour delays, emergency usability, maintenance
+                  limitations, high traffic building usage.
+                </p>
+              </div>
+              <div class="board-note">
+                <h4>Safety, Usability & Accessibility</h4>
+                <p>
+                  Need for tactile feedback, voice assistance, clear indicators,
+                  error prevention.
+                </p>
+              </div>
+              <div class="board-note">
+                <h4>Proposed Smart Control Solutions</h4>
+                <p>
+                  AI-assisted floor prediction, touchless controls, voice
+                  commands, smart grouping, real-time occupancy logic.
+                </p>
+              </div>
+              <div class="board-note">
+                <h4>Concept Translation</h4>
+                <p>
+                  Low-fidelity user flows, interaction mapping, and concept
+                  sketches evolved into high-fidelity smart panel UI ideas.
+                </p>
               </div>
             </div>
-            <div class="motion-card">
-              <h3>Split Hero</h3>
-              <p>Floating panels with kinetic background.</p>
-              <div class="chips">
-                <span>Layout</span>
-                <span>Depth</span>
-                <span>Glass</span>
+            <div class="case-gallery" aria-label="Elevator HCI gallery">
+              <img
+                src="https://images.unsplash.com/photo-1487014679447-9f8336841d58?auto=format&fit=crop&w=900&q=80"
+                alt="Research frames"
+                loading="lazy"
+                data-lightbox="true"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1488998427799-e3362cec87c3?auto=format&fit=crop&w=900&q=80"
+                alt="Analysis boards"
+                loading="lazy"
+                data-lightbox="true"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1484557052118-f32bd25b45b5?auto=format&fit=crop&w=900&q=80"
+                alt="Concept explanation blocks"
+                loading="lazy"
+                data-lightbox="true"
+              />
+            </div>
+            <div class="case-highlights">
+              <span>Research frames</span>
+              <span>Analysis boards</span>
+              <span>Concept explanation blocks</span>
+            </div>
+          </article>
+
+          <article class="case-card case-product">
+            <div class="case-head">
+              <span class="case-label">Desktop Product UI</span>
+              <h3>Food Ordering Web App</h3>
+              <p>
+                Modern e-commerce UI with card-based product browsing, filtering
+                controls, and conversion-ready CTAs.
+              </p>
+            </div>
+            <div class="case-body">
+              <p>
+                Low Fidelity: Wireframes for layout planning and user flow.
+                High Fidelity: Final UI with branding, product imagery, pricing
+                hierarchy, and CTA placement for conversions.
+              </p>
+              <div class="case-highlights">
+                <span>Promotional homepage</span>
+                <span>Product listing grid</span>
+                <span>Login + auth</span>
+                <span>Cart summary</span>
               </div>
             </div>
-          </div>
-          <div class="motion-layer layer-secondary">
-            <div class="pulse-dot"></div>
-            <div class="pulse-dot"></div>
-            <div class="pulse-dot"></div>
-          </div>
+            <div class="case-gallery" aria-label="Food ordering UI gallery">
+              <img
+                src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80"
+                alt="Homepage banners"
+                loading="lazy"
+                data-lightbox="true"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1504753793650-d4a2b783c15e?auto=format&fit=crop&w=900&q=80"
+                alt="Product listing page"
+                loading="lazy"
+                data-lightbox="true"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1521305916504-4a1121188589?auto=format&fit=crop&w=900&q=80"
+                alt="Login screen"
+                loading="lazy"
+                data-lightbox="true"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1505253716362-afaea1d3d1af?auto=format&fit=crop&w=900&q=80"
+                alt="Cart and order summary"
+                loading="lazy"
+                data-lightbox="true"
+              />
+            </div>
+          </article>
+
+          <article class="case-card case-mobile">
+            <div class="case-head">
+              <span class="case-label">Mobile App UI</span>
+              <h3>Travel Booking App (iOS Inspired)</h3>
+              <p>
+                Minimal iOS-inspired UI with rounded cards, soft shadows, and a
+                bottom navigation pattern.
+              </p>
+            </div>
+            <div class="case-body">
+              <p>
+                Low Fidelity: User journey flows and booking process structure.
+                High Fidelity: Polished mobile UI with clear content hierarchy,
+                spacing system, and mobile-first usability focus.
+              </p>
+              <div class="case-highlights">
+                <span>Splash + onboarding</span>
+                <span>Login / register</span>
+                <span>Discovery home</span>
+                <span>Transport booking</span>
+                <span>Filters + results</span>
+              </div>
+            </div>
+            <div class="case-gallery" aria-label="Travel booking mobile gallery">
+              <img
+                src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=640&q=80"
+                alt="Splash and onboarding"
+                loading="lazy"
+                data-lightbox="true"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=640&q=80"
+                alt="Login and register"
+                loading="lazy"
+                data-lightbox="true"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1500534314209-a26db0f5f2b4?auto=format&fit=crop&w=640&q=80"
+                alt="Home discovery"
+                loading="lazy"
+                data-lightbox="true"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1454372182658-c712e4c5a1db?auto=format&fit=crop&w=640&q=80"
+                alt="Transport booking"
+                loading="lazy"
+                data-lightbox="true"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1490725263030-1f0521cec8ec?auto=format&fit=crop&w=640&q=80"
+                alt="Search filters"
+                loading="lazy"
+                data-lightbox="true"
+              />
+            </div>
+          </article>
         </div>
       </section>
 
@@ -472,6 +641,12 @@
       <p>Designed and built by Udit Kumar Raj.</p>
       <a href="#top">Back to top ↑</a>
     </footer>
+    <div class="lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="Close preview">
+        ✕
+      </button>
+      <img src="" alt="Expanded preview" />
+    </div>
     <script src="script.js"></script>
   </body>
 </html>

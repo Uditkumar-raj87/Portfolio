@@ -1,5 +1,5 @@
 const revealItems = document.querySelectorAll(
-  ".section, .hero-card, .project-card, .skill-block, .edu-card, .cert-card, .skill-icon"
+  ".section, .hero-card, .project-card, .case-card, .skill-block, .edu-card, .cert-card, .skill-icon"
 );
 
 revealItems.forEach((item, index) => {
@@ -51,3 +51,86 @@ if (parallaxItems.length) {
     });
   });
 }
+
+const themeToggle = document.querySelector(".theme-toggle");
+const themeIcon = document.querySelector(".theme-icon");
+const savedTheme = localStorage.getItem("theme");
+const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+
+const applyTheme = (theme) => {
+  if (theme === "light") {
+    document.body.setAttribute("data-theme", "light");
+    if (themeIcon) themeIcon.textContent = "☀";
+  } else {
+    document.body.removeAttribute("data-theme");
+    if (themeIcon) themeIcon.textContent = "☾";
+  }
+};
+
+if (savedTheme) {
+  applyTheme(savedTheme);
+} else {
+  applyTheme(prefersLight ? "light" : "dark");
+}
+
+if (themeToggle) {
+  themeToggle.addEventListener("click", () => {
+    const isLight = document.body.getAttribute("data-theme") === "light";
+    const nextTheme = isLight ? "dark" : "light";
+    applyTheme(nextTheme);
+    localStorage.setItem("theme", nextTheme);
+  });
+}
+
+const profileUpload = document.querySelector("#profile-upload");
+const profileImage = document.querySelector("#profile-image");
+
+if (profileUpload && profileImage) {
+  profileUpload.addEventListener("change", (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      profileImage.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+const lightbox = document.querySelector(".lightbox");
+const lightboxImage = lightbox ? lightbox.querySelector("img") : null;
+const lightboxClose = document.querySelector(".lightbox-close");
+
+document.querySelectorAll("[data-lightbox='true']").forEach((img) => {
+  img.addEventListener("click", () => {
+    if (!lightbox || !lightboxImage) return;
+    lightboxImage.src = img.src;
+    lightbox.classList.add("open");
+    lightbox.setAttribute("aria-hidden", "false");
+  });
+});
+
+const closeLightbox = () => {
+  if (!lightbox || !lightboxImage) return;
+  lightbox.classList.remove("open");
+  lightbox.setAttribute("aria-hidden", "true");
+  lightboxImage.src = "";
+};
+
+if (lightbox) {
+  lightbox.addEventListener("click", (event) => {
+    if (event.target === lightbox) {
+      closeLightbox();
+    }
+  });
+}
+
+if (lightboxClose) {
+  lightboxClose.addEventListener("click", closeLightbox);
+}
+
+window.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    closeLightbox();
+  }
+});
