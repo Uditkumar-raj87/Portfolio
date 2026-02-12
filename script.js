@@ -207,6 +207,8 @@ const profileUpload = document.querySelector("#profile-upload");
 const profileImage = document.querySelector("#profile-image");
 const photoFrame = document.querySelector("#photo-frame");
 const photoRemove = document.querySelector(".photo-remove");
+const profileStorageKey = "portfolio.profileImage";
+const defaultProfileSrc = profileImage ? profileImage.getAttribute("src") : "";
 
 const setPhotoState = (hasImage) => {
   if (!photoFrame) return;
@@ -224,6 +226,13 @@ if (profileImage) {
   setPhotoState(hasInitialImage);
 }
 
+if (profileImage) {
+  const savedImage = localStorage.getItem(profileStorageKey);
+  if (savedImage) {
+    profileImage.src = savedImage;
+  }
+}
+
 if (profileUpload && profileImage) {
   profileUpload.addEventListener("change", (event) => {
     const file = event.target.files[0];
@@ -231,6 +240,7 @@ if (profileUpload && profileImage) {
     const reader = new FileReader();
     reader.onload = () => {
       profileImage.src = reader.result;
+      localStorage.setItem(profileStorageKey, reader.result);
       setPhotoState(true);
     };
     reader.readAsDataURL(file);
@@ -239,7 +249,8 @@ if (profileUpload && profileImage) {
 
 if (photoRemove && profileImage && profileUpload) {
   photoRemove.addEventListener("click", () => {
-    profileImage.src = "";
+    localStorage.removeItem(profileStorageKey);
+    profileImage.src = defaultProfileSrc || "";
     profileUpload.value = "";
     setPhotoState(false);
   });
