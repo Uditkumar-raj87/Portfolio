@@ -19,6 +19,8 @@ body {
   font-family: "Space Grotesk", sans-serif;
   color: var(--ink);
   background: radial-gradient(circle at top, #fff7eb 0%, #f1efe9 45%, #d9d5c9 100%);
+  background-size: 140% 140%;
+  animation: glowShift 18s ease-in-out infinite;
   min-height: 100vh;
   line-height: 1.6;
 }
@@ -30,6 +32,57 @@ body {
   pointer-events: none;
   mix-blend-mode: multiply;
   z-index: 0;
+}
+
+.ambient {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(0px);
+  opacity: 0.6;
+  mix-blend-mode: multiply;
+  animation: floaty 18s ease-in-out infinite;
+}
+
+.orb-one {
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, #fbd38d, rgba(251, 211, 141, 0));
+  top: -80px;
+  left: -60px;
+}
+
+.orb-two {
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, #c4d5c3, rgba(196, 213, 195, 0));
+  right: 10%;
+  top: 10%;
+  animation-delay: -4s;
+}
+
+.orb-three {
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, #e5897d, rgba(229, 137, 125, 0));
+  right: -120px;
+  bottom: -140px;
+  animation-delay: -8s;
+}
+
+.gridline {
+  position: absolute;
+  inset: 20% 10% auto 10%;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(16, 16, 16, 0), rgba(16, 16, 16, 0.15), rgba(16, 16, 16, 0));
+  animation: sweep 9s ease-in-out infinite;
 }
 
 .hero {
@@ -64,6 +117,22 @@ body {
   text-decoration: none;
   color: var(--slate);
   font-weight: 500;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background: var(--rose);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
 }
 
 .cta {
@@ -161,6 +230,47 @@ body {
   box-shadow: var(--shadow);
   display: grid;
   gap: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.hero-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 40px 80px rgba(16, 16, 16, 0.2);
+}
+
+.profile-photo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.photo-frame {
+  width: 96px;
+  height: 96px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #f7c88b, #e79a86);
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(16, 16, 16, 0.18);
+}
+
+.photo-frame img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-frame span {
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: rgba(16, 16, 16, 0.75);
+  z-index: 1;
+}
 }
 
 .badge {
@@ -203,6 +313,46 @@ main {
   margin-bottom: 24px;
 }
 
+.skill-icons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
+  margin-bottom: 26px;
+}
+
+.skill-icon {
+  background: #fff;
+  padding: 14px 16px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 14px 30px rgba(16, 16, 16, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.skill-icon:hover {
+  transform: translateY(-4px) scale(1.01);
+}
+
+.skill-icon svg {
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, #f6d6a7, #c4d5c3);
+  border-radius: 12px;
+}
+
+.skill-icon rect {
+  fill: rgba(255, 255, 255, 0.7);
+}
+
+.skill-icon text {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  fill: #2d2a2a;
+}
+
 .timeline-card,
 .project-card,
 .skill-block,
@@ -212,6 +362,16 @@ main {
   padding: 22px;
   border-radius: 18px;
   box-shadow: 0 20px 40px rgba(16, 16, 16, 0.08);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.timeline-card:hover,
+.project-card:hover,
+.skill-block:hover,
+.edu-card:hover,
+.cert-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 30px 50px rgba(16, 16, 16, 0.12);
 }
 
 .timeline-card ul {
@@ -315,6 +475,38 @@ main {
 .reveal.show {
   opacity: 1;
   transform: translateY(0);
+}
+
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(20px, 30px, 0);
+  }
+}
+
+@keyframes glowShift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes sweep {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: translateX(-10%);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translateX(10%);
+  }
 }
 
 @media (max-width: 900px) {
