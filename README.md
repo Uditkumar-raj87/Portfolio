@@ -23,6 +23,10 @@ Personal portfolio website with a dark, cinematic UI, interactive cards, and a m
 - JavaScript
 
 ## Run Locally
+
+https://uditkumar-raj87.github.io/Portfolio/  
+
+
 Open index.html directly, or start a local server:
 
 ```bash
