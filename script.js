@@ -80,6 +80,47 @@ if (parallaxItems.length && !prefersReducedMotion) {
   });
 }
 
+const tiltCards = document.querySelectorAll(
+  ".project-card, .timeline-card, .skill-block, .skill-icon, .cert-card"
+);
+
+if (tiltCards.length && !prefersReducedMotion) {
+  tiltCards.forEach((card) => {
+    card.classList.add("tilt-card");
+    let tiltRaf = null;
+    let pointer = null;
+
+    const updateTilt = () => {
+      if (!pointer) return;
+      const rect = card.getBoundingClientRect();
+      const x = (pointer.x - rect.left) / rect.width;
+      const y = (pointer.y - rect.top) / rect.height;
+      const tiltX = (0.5 - y) * 6;
+      const tiltY = (x - 0.5) * 6;
+      card.style.setProperty("--tilt-x", `${tiltX.toFixed(2)}deg`);
+      card.style.setProperty("--tilt-y", `${tiltY.toFixed(2)}deg`);
+      card.style.setProperty("--glow-x", `${(x * 100).toFixed(0)}%`);
+      card.style.setProperty("--glow-y", `${(y * 100).toFixed(0)}%`);
+      tiltRaf = null;
+    };
+
+    card.addEventListener("mousemove", (event) => {
+      pointer = { x: event.clientX, y: event.clientY };
+      if (!tiltRaf) {
+        tiltRaf = requestAnimationFrame(updateTilt);
+      }
+    });
+
+    card.addEventListener("mouseleave", () => {
+      pointer = null;
+      card.style.setProperty("--tilt-x", "0deg");
+      card.style.setProperty("--tilt-y", "0deg");
+      card.style.setProperty("--glow-x", "50%");
+      card.style.setProperty("--glow-y", "50%");
+    });
+  });
+}
+
 const themeToggle = document.querySelector(".theme-toggle");
 const themeIcon = document.querySelector(".theme-icon");
 const savedTheme = localStorage.getItem("theme");
