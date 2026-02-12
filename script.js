@@ -84,6 +84,24 @@ if (themeToggle) {
 
 const profileUpload = document.querySelector("#profile-upload");
 const profileImage = document.querySelector("#profile-image");
+const photoFrame = document.querySelector("#photo-frame");
+const photoRemove = document.querySelector(".photo-remove");
+
+const setPhotoState = (hasImage) => {
+  if (!photoFrame) return;
+  photoFrame.classList.toggle("has-image", hasImage);
+  photoFrame.classList.toggle("is-empty", !hasImage);
+  if (photoRemove) {
+    photoRemove.style.display = hasImage ? "inline-flex" : "none";
+  }
+};
+
+if (profileImage) {
+  profileImage.addEventListener("load", () => setPhotoState(true));
+  profileImage.addEventListener("error", () => setPhotoState(false));
+  const hasInitialImage = profileImage.complete && profileImage.naturalWidth > 0;
+  setPhotoState(hasInitialImage);
+}
 
 if (profileUpload && profileImage) {
   profileUpload.addEventListener("change", (event) => {
@@ -92,8 +110,17 @@ if (profileUpload && profileImage) {
     const reader = new FileReader();
     reader.onload = () => {
       profileImage.src = reader.result;
+      setPhotoState(true);
     };
     reader.readAsDataURL(file);
+  });
+}
+
+if (photoRemove && profileImage && profileUpload) {
+  photoRemove.addEventListener("click", () => {
+    profileImage.src = "";
+    profileUpload.value = "";
+    setPhotoState(false);
   });
 }
 
