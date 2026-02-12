@@ -359,6 +359,7 @@ body[data-theme="light"] .backdrop-3d {
 
   .tilt-card {
     transform: none;
+    animation: none;
   }
 }
 
@@ -851,11 +852,29 @@ body[data-theme="light"] .skill-icon {
   position: relative;
   overflow: hidden;
   transform-style: preserve-3d;
+  --float-x: 0px;
+  --float-y: 0px;
+  --float-rot: 0deg;
+  --shift-x: 0px;
+  --shift-y: 0px;
   transform: perspective(900px)
+    translate3d(
+      calc(var(--float-x) + var(--shift-x)),
+      calc(var(--float-y) + var(--shift-y)),
+      0
+    )
+    rotateZ(var(--float-rot))
     rotateX(var(--tilt-x, 0deg))
     rotateY(var(--tilt-y, 0deg))
     scale(var(--tilt-scale, 1));
-  transition: transform 0.25s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+  animation: floatAmbient 36s ease-in-out infinite;
+}
+
+.tilt-card:nth-child(even) {
+  animation-name: floatAmbientAlt;
+  animation-duration: 42s;
+  animation-delay: -12s;
 }
 
 .tilt-card::after {
@@ -873,7 +892,9 @@ body[data-theme="light"] .skill-icon {
 }
 
 .tilt-card:hover {
-  --tilt-scale: 1.01;
+  --tilt-scale: 1.03;
+  box-shadow: 0 30px 60px rgba(0, 245, 255, 0.15);
+  border-color: rgba(0, 245, 255, 0.28);
 }
 
 .tilt-card:hover::after {
@@ -1372,6 +1393,24 @@ body[data-theme="light"] .tool-icons img {
     opacity: 0.4;
     transform: translate3d(-8px, 6px, 0);
   }
+}
+
+@property --float-x {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@property --float-y {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@property --float-rot {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
 }
 
 @keyframes sceneDrift {

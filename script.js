@@ -127,7 +127,7 @@ if (parallaxItems.length && !prefersReducedMotion) {
 }
 
 const tiltCards = document.querySelectorAll(
-  ".project-card, .timeline-card, .skill-block, .skill-icon, .cert-card"
+  ".project-card, .timeline-card, .skill-block, .skill-icon, .cert-card, .case-card, .edu-card"
 );
 
 if (tiltCards.length && !prefersReducedMotion) {
@@ -141,10 +141,14 @@ if (tiltCards.length && !prefersReducedMotion) {
       const rect = card.getBoundingClientRect();
       const x = (pointer.x - rect.left) / rect.width;
       const y = (pointer.y - rect.top) / rect.height;
-      const tiltX = (0.5 - y) * 6;
-      const tiltY = (x - 0.5) * 6;
+      const tiltX = (0.5 - y) * 5;
+      const tiltY = (x - 0.5) * 5;
+      const shiftX = (x - 0.5) * 10;
+      const shiftY = (y - 0.5) * 10;
       card.style.setProperty("--tilt-x", `${tiltX.toFixed(2)}deg`);
       card.style.setProperty("--tilt-y", `${tiltY.toFixed(2)}deg`);
+      card.style.setProperty("--shift-x", `${shiftX.toFixed(2)}px`);
+      card.style.setProperty("--shift-y", `${shiftY.toFixed(2)}px`);
       card.style.setProperty("--glow-x", `${(x * 100).toFixed(0)}%`);
       card.style.setProperty("--glow-y", `${(y * 100).toFixed(0)}%`);
       tiltRaf = null;
@@ -161,6 +165,8 @@ if (tiltCards.length && !prefersReducedMotion) {
       pointer = null;
       card.style.setProperty("--tilt-x", "0deg");
       card.style.setProperty("--tilt-y", "0deg");
+      card.style.setProperty("--shift-x", "0px");
+      card.style.setProperty("--shift-y", "0px");
       card.style.setProperty("--glow-x", "50%");
       card.style.setProperty("--glow-y", "50%");
     });
