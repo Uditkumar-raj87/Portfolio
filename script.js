@@ -293,3 +293,37 @@ window.addEventListener("keydown", (event) => {
     closeLightbox();
   }
 });
+
+const githubActivitySection = document.querySelector("[data-github-username]");
+
+if (githubActivitySection) {
+  const githubCards = githubActivitySection.querySelectorAll("img[data-base-src]");
+  const refreshEveryMs = 10 * 60 * 1000;
+
+  const buildCardUrl = (baseSrc) => {
+    const joinChar = baseSrc.includes("?") ? "&" : "?";
+    return `${baseSrc}${joinChar}t=${Date.now()}`;
+  };
+
+  const refreshGithubCards = () => {
+    githubCards.forEach((card) => {
+      const baseSrc = card.dataset.baseSrc;
+      if (!baseSrc) return;
+      card.src = buildCardUrl(baseSrc);
+    });
+  };
+
+  refreshGithubCards();
+  const githubRefreshTimer = window.setInterval(refreshGithubCards, refreshEveryMs);
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") {
+      refreshGithubCards();
+    }
+  });
+
+  window.addEventListener("focus", refreshGithubCards);
+  window.addEventListener("beforeunload", () => {
+    window.clearInterval(githubRefreshTimer);
+  });
+}
